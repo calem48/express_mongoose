@@ -1,12 +1,23 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router()
 const Joi = require('joi');
 const Emp = require('../models/modelEmp')
+// const { authenticateUser, authorazationUser } = require('../midleware/auth')
 
 
 router.get('/', async (req, res) => {
     let getEmp = await Emp.find()
     res.send(getEmp)
+    // console.log(req);
+})
+
+
+router.get('/pages', async (req, res) => {
+    const { page, limit } = req.query
+    let emp = await Emp.find({})
+        .limit(limit)
+        .skip((page - 1) * limit)
+    res.send(emp)
 
 })
 
@@ -17,6 +28,7 @@ router.get('/:id', async (req, res) => {
             return res.send("user not found ... ")
         }
         res.send(user)
+
     } catch (error) {
         res.send("invalid id")
     }
@@ -67,16 +79,20 @@ router.put('/:id', async (req, res) => {
 
 })
 
-router.delete('/:id', (req, res) => {
-    let user = emp.find(emp => emp.id == req.params.id)
-    if (!user) {
-        return res.send("user not found ... ")
+router.delete('/:id', async (req, res) => {
+    try {
+        let user = await Emp.findByIdAndRemove(req.params.id)
+        if (!user) {
+            return res.send("user not found ... ")
+        }
+        res.send({ user, msg: "deleted seccessfully" })
+    } catch (error) {
+        res.send("invalid id")
     }
 
-    emp.splice(emp.indexOf(user), 1)
-    res.send(user)
-
 })
+
+
 
 function empValidate(req) {
     let schema = Joi.object({

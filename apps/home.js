@@ -1,24 +1,24 @@
-const express = require('express')
-const mongoose = require('mongoose');
-const app = express()
-const Emp = require('./routers/empRoute')
+// const express = require('express')
+// const mongoose = require('mongoose');
+// const app = express()
+// const Emp = require('../routers/empRoute')
 
 
-app.use(express.json())
-app.use("/api/employees", Emp)
+// app.use(express.json())
+// app.use("/api/employees", Emp)
 
-mongoose.connect('mongodb://localhost:27017/myapp')
-    .then(() => {
-        console.log("db connected successfully");
-    })
-    .catch((e) => {
-        console.log(e);
-    })
+// mongoose.connect('mongodb://localhost:27017/myapp')
+//     .then(() => {
+//         console.log("db connected successfully");
+//     })
+//     .catch((e) => {
+//         console.log(e);
+//     })
 
 
 
-const port = process.env.port || 3000
-app.listen(port, () => console.log('server connected on port  ' + port))
+// const port = process.env.port || 3000
+// app.listen(port, () => console.log('server connected on port  ' + port))
 
 
 ////
