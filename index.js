@@ -20,6 +20,7 @@ app.use('/api/user', User)
 app.all('*', (req, res) => {
     res.status(404).json({ msg: "page not found" })
 })
+
 app.use(errorHandlerMiddleware)
 
 
@@ -27,7 +28,6 @@ app.use(errorHandlerMiddleware)
 let PORT = process.env.PORT || 5000
 let connect = async () => {
     await connectDatabase(process.env.MONGO_DB_URL)
-    app.listen(PORT, () => console.log(`server listening in port ${PORT} ...`))
+    app.listen(PORT, (req, res) => console.log(`server listening in port ${PORT} ...`))
 }
-
 connect()

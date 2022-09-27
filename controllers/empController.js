@@ -1,10 +1,10 @@
 const Emp = require('../models/modelEmp')
 const asyncWrapper = require('../midleware/asyncWrapper')
+const { createCustomError } = require('../errors/error')
 
 let getAllEmployee = asyncWrapper(async (req, res) => {
     let getEmp = await Emp.find({})
     res.send(getEmp)
-    // console.log(req);
 })
 
 let pagination = asyncWrapper(async (req, res) => {
@@ -16,10 +16,10 @@ let pagination = asyncWrapper(async (req, res) => {
 
 })
 
-let getEmployee = asyncWrapper(async (req, res) => {
-    let user = await Emp.findById(req.params.id)
+let getEmployee = asyncWrapper(async (req, res, next) => {
+    let user = await Emp.findOne({ _id: req.params.id })
     if (!user) {
-        return res.send("user not found ... ")
+        return next(createCustomError("user not found", 404))
     }
     res.send(user)
 })
