@@ -6,14 +6,10 @@ let authenticateUser = (req, res, next) => {
     if (!token) {
         return res.status(400).json({ msg: "you don't have access" })
     }
-
     jwt.verify(token, "privatekeyy", (err, user) => {
-        console.log('hiiiiiiiiii');
         if (err)
             return res.send(err)
-
         req.putAnyName = user
-
         next()
     })
 
@@ -30,8 +26,6 @@ let authenticateUser = (req, res, next) => {
     // } catch (error) {
     //     res.send(error)
     // }
-
-
 }
 
 let authorazationUser = (req, res, next) => {

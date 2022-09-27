@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router()
 const Joi = require('joi');
-const Emp = require('../models/modelEmp')
+
 // const { authenticateUser, authorazationUser } = require('../midleware/auth')
 const {
     getAllEmployee, pagination, getEmployee, addEmployee, updateEmployee, deleteEmployee
@@ -13,6 +13,7 @@ router.get('/pages', pagination)
 router.get('/:id', getEmployee)
 router.post('/', addEmployee)
 router.put('/:id', updateEmployee)
+router.patch('/:id', updateEmployee)
 router.delete('/:id', deleteEmployee)
 
 // router.route('/pages').get(pagination)
