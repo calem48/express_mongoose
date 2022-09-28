@@ -25,7 +25,7 @@ let getEmployee = asyncWrapper(async (req, res, next) => {
 })
 
 let addEmployee = asyncWrapper(async (req, res) => {
-
+    // we can use Emp.create to create employee instead of this way
     let emp = new Emp({
         name: req.body.name,
         salary: req.body.salary,

@@ -1,5 +1,4 @@
 
-
 class CustomAPIErrors extends Error {
     constructor(message, statusCode) {
         super(message)
