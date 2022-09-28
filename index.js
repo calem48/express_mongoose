@@ -6,7 +6,7 @@ const Emp = require('./routers/empRoute')
 const User = require('./routers/userRouter')
 const cookieParser = require('cookie-parser')
 const errorHandlerMiddleware = require('./midleware/errorHandlerMiddleware')
-const connectDatabase = require('./controllers/db/connect')
+const connectDatabase = require('./db/connect')
 const notFound = require('./midleware/not-found')
 
 //Parser my req and cookies
