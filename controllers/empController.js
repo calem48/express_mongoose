@@ -3,10 +3,25 @@ const asyncWrapper = require('../midleware/asyncWrapper')
 const { createCustomError } = require('../errors/error')
 
 let getAllEmployee = asyncWrapper(async (req, res) => {
-    let getEmp = await Emp.find({})
-    res.send(getEmp)
-})
+    const { name, age, completed } = req.query
+    const queryObject = {}
+    if (completed) {
+        queryObject.completed = completed === "true" ? true : false
+    }
+    if (age) {
+        queryObject.age = age
+    }
 
+    if (name) {
+        queryObject.name = { $regex: name, $options: "i" }
+    }
+    console.log(queryObject);
+    let getEmp = await Emp.find(queryObject)
+
+
+    res.status(200).json({ nbHints: getEmp.length, data: getEmp })
+})
+// $regex: search, option: "i"
 let pagination = asyncWrapper(async (req, res) => {
     const { page, limit } = req.query
     let emp = await Emp.find({})
@@ -58,5 +73,7 @@ let deleteEmployee = asyncWrapper(async (req, res) => {
     res.send({ user, msg: "deleted seccessfully" })
 
 })
+
+
 
 module.exports = { getAllEmployee, pagination, getEmployee, addEmployee, updateEmployee, deleteEmployee }
