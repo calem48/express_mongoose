@@ -7,20 +7,19 @@ const User = require('./routers/userRouter')
 const cookieParser = require('cookie-parser')
 const errorHandlerMiddleware = require('./midleware/errorHandlerMiddleware')
 const connectDatabase = require('./controllers/db/connect')
+const notFound = require('./midleware/not-found')
 
-
+//Parser my req and cookies
 app.use(express.json())
 app.use(cookieParser())
 
 
-
+//Routes
 app.use('/api/employee', Emp)
 app.use('/api/user', User)
 
-app.all('*', (req, res) => {
-    res.status(404).json({ msg: "page not found" })
-})
-
+//Handle Errors
+app.use(notFound)
 app.use(errorHandlerMiddleware)
 
 
