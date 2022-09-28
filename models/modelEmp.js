@@ -7,7 +7,7 @@ const schemaEmp = new Schema({
     age: { type: Number, required: [true, "you must put the age"] },
     salary: Number,
     date: { type: Date, default: Date.now() },
-    // completed: { type: Boolean, default: false }
+    completed: { type: Boolean, default: false }
 })
 
 module.exports = mongoose.model('Emp', schemaEmp)
