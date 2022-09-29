@@ -3,7 +3,7 @@ const asyncWrapper = require('../midleware/asyncWrapper')
 const { createCustomError } = require('../errors/error')
 
 let getAllEmployee = asyncWrapper(async (req, res) => {
-    const { name, age, completed } = req.query
+    const { name, age, completed, sort, fields } = req.query
     const queryObject = {}
     if (completed) {
         queryObject.completed = completed === "true" ? true : false
@@ -15,19 +15,37 @@ let getAllEmployee = asyncWrapper(async (req, res) => {
     if (name) {
         queryObject.name = { $regex: name, $options: "i" }
     }
-    console.log(queryObject);
-    let getEmp = await Emp.find(queryObject)
+
+    let getEmp = Emp.find(queryObject)
 
 
-    res.status(200).json({ nbHints: getEmp.length, data: getEmp })
+    if (sort) {
+        let res = sort.split(",").join(' ')
+        getEmp = getEmp.sort(res)
+    }
+
+
+    if (fields) {
+        let res = fields.split(",").join(' ')
+        getEmp = getEmp.select(res)
+    }
+
+    let page = Number(req.query.page) || 1
+    let limit = Number(req.query.limit) || 10
+    let skip = (page - 1) * limit
+
+    getEmp = getEmp.skip(skip).limit(limit)
+
+    let resl = await getEmp
+    res.status(200).json({ nbHints: getEmp.length, data: resl })
 })
 // $regex: search, option: "i"
 let pagination = asyncWrapper(async (req, res) => {
-    const { page, limit } = req.query
-    let emp = await Emp.find({})
-        .limit(limit)
-        .skip((page - 1) * limit)
-    res.send(emp)
+    // const { page, limit } = req.query
+    // let emp = await Emp.find({})
+    //     .limit(limit)
+    //     .skip((page - 1) * limit)
+    // res.send(emp)
 
 })
 
