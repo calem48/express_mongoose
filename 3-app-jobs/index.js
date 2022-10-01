@@ -10,7 +10,7 @@ const app = express()
 
 
 
-//middleware
+
 app.use(notFound)
 app.use(middlewareErrorsHandler)
 
@@ -18,8 +18,12 @@ app.use(middlewareErrorsHandler)
 //connect server and database
 const port = process.env.PORT || 5000
 const connect = async () => {
-    await connectDatabase(process.env.DB_URL)
-    app.listen(port, `Server connect on port ${port}...`)
+    try {
+        await connectDatabase(process.env.DB_URL)
+        app.listen(port, `Server connect on port ${port}...`)
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 connect()
