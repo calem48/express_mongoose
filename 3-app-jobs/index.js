@@ -9,6 +9,7 @@ const job = require('./routes/jobRoute')
 const user = require('./routes/userRoute')
 const app = express()
 
+app.use(express.json())
 
 //Routes
 app.use('/api/v1/user', user)

@@ -7,7 +7,7 @@ const middlewareErrorsHandler = (err, req, res, next) => {
         return res.status(err.statusCode).json({ msg: err.message })
     }
 
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('there is something happened try later')
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(err)
 
 }
 

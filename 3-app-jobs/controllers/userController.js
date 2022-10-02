@@ -1,12 +1,38 @@
 
+const User = require('../models/userModel')
+const { StatusCodes } = require('http-status-codes')
+const { unAuthenticated, BadRequestError } = require('../errors')
 
-const login = (req, res) => {
+const login = async (req, res) => {
+    const { email, password } = req.body
 
-    res.status(200).json({ msg: 'login seccessfully' })
+    if (!email || !password) {
+        throw new BadRequestError("email and password require")
+    }
+    const user = await User.findOne({ email })
+
+    if (!user) {
+        throw new unAuthenticated('check your email or password')
+    }
+    const decodePassword = await user.decodeTokenJwt(password)
+
+    if (!decodePassword) {
+        throw new unAuthenticated('check your email or password')
+    }
+
+    const token = await user.createTokenJwt()
+    res.status(200).json({ msg: 'login seccessfully', username: user.name, token })
 }
 
-const register = (req, res) => {
-    res.status(200).json({ msg: 'registered seccessfully' })
+const register = async (req, res) => {
+
+    const user = await User.create({ ...req.body })
+    const token = await user.createTokenJwt()
+
+    res.status(StatusCodes.CREATED).json({ user, token })
+
+
+
 }
 
 module.exports = { login, register }
