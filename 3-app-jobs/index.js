@@ -3,6 +3,7 @@ require('express-async-errors')
 
 const express = require('express')
 const connectDatabase = require('./db/connect')
+const auth = require('./middleware/auth')
 const middlewareErrorsHandler = require('./middleware/error-handler')
 const notFound = require('./middleware/not-found')
 const job = require('./routes/jobRoute')
@@ -13,7 +14,7 @@ app.use(express.json())
 
 //Routes
 app.use('/api/v1/user', user)
-app.use('/api/v1/job', job)
+app.use('/api/v1/job', auth, job)
 
 
 //

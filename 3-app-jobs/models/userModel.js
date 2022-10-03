@@ -29,7 +29,7 @@ userSchema.pre('save', async function () {
 })
 
 userSchema.methods.createTokenJwt = async function () {
-    return jwt.sign({ id: this._id }, process.env.JWT_TOKEN, { expiresIn: "30d" })
+    return jwt.sign({ _id: this._id }, process.env.JWT_TOKEN, { expiresIn: "30d" })
 }
 
 userSchema.methods.decodeTokenJwt = async function (password) {

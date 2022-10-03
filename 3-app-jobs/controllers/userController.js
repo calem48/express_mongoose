@@ -9,6 +9,7 @@ const login = async (req, res) => {
     if (!email || !password) {
         throw new BadRequestError("email and password require")
     }
+
     const user = await User.findOne({ email })
 
     if (!user) {
@@ -21,18 +22,15 @@ const login = async (req, res) => {
     }
 
     const token = await user.createTokenJwt()
-    res.status(200).json({ msg: 'login seccessfully', username: user.name, token })
+    res.status(StatusCodes.OK).json({ msg: 'login seccessfully', username: user.name, token })
 }
 
 const register = async (req, res) => {
-
     const user = await User.create({ ...req.body })
+
     const token = await user.createTokenJwt()
 
     res.status(StatusCodes.CREATED).json({ user, token })
-
-
-
 }
 
 module.exports = { login, register }
