@@ -1,8 +1,8 @@
 const path = require('path');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
-
-
+const cloudinary = require('cloudinary').v2
+const fs = require('fs')
 const uploadProductImageLocal = async (req, res) => {
 
   if (!req.files) {
@@ -26,4 +26,16 @@ const uploadProductImageLocal = async (req, res) => {
 
 };
 
-module.exports = { uploadProductImageLocal };
+const uploadProductImage = async (req, res) => {
+  const reslt = await cloudinary.uploader.upload(
+    req.files.image.tempFilePath,//this is the path
+    {
+      folder: 'file_upload',//this is folder when storage it in cloudinary
+      use_filename: true,//this for used the same temp name not gen an other name
+    }
+  )
+  fs.unlinkSync(req.files.image.tempFilePath)
+  return res.status(StatusCodes.OK).json({ path: reslt.secure_url })
+}
+
+module.exports = { uploadProductImage };
