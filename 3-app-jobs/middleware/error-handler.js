@@ -14,6 +14,11 @@ const middlewareErrorsHandler = (err, req, res, next) => {
         customError.statusCode = StatusCodes.BAD_REQUEST
     }
 
+    if (err.name === "CastError") {
+        customError.message = `not valid  ${err.path}`
+        customError.statusCode = StatusCodes.NOT_FOUND
+    }
+
     if (err.code === 11000) {
         customError.message = `Duplicated ${Object.keys(err.keyValue)} please try an other one`
         customError.statusCode = StatusCodes.BAD_REQUEST
