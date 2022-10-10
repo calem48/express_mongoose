@@ -9,15 +9,21 @@ const app = express()
 
 const connectDatabase = require('./db/connect');
 
+
+
 //routers
 const userRouter = require('./routers/userRoute');
 
 //errors
-
+const middlewareErrorHandler = require('./middleware/errorHandler');
+const middlewareNotFoundError = require('./middleware/notFound');
 
 app.use(express.json())
 app.use('/api/v1/user', userRouter)
 
+
+app.use(middlewareNotFoundError)
+app.use(middlewareErrorHandler)
 
 
 const port = process.env.PORT || 3001
