@@ -15,7 +15,7 @@ const login = async (req, res) => {
     if (!user) {
         throw new unAuthenticated('check your email or password')
     }
-    const decodePassword = await user.decodeTokenJwt(password)
+    const decodePassword = await user.comparePassword(password)
 
     if (!decodePassword) {
         throw new unAuthenticated('check your email or password')

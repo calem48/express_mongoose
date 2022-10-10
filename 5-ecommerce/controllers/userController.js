@@ -5,6 +5,10 @@ const { StatusCodes } = require("http-status-codes")
 const { BadRequestError, UnAuthenticatedError } = require('../errors')
 const login = async (req, res) => {
     const { password, email } = req.body
+
+    if (!password || !email) {
+        throw new BadRequestError("please check email or password")
+    }
     const user = await User.findOne({ email })
 
     if (!user) {
