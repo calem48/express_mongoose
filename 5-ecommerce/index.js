@@ -12,14 +12,14 @@ const connectDatabase = require('./db/connect');
 
 
 //routers
-const userRouter = require('./routers/userRoute');
+const authRoute = require('./routers/authRoute');
 
 //errors
 const middlewareErrorHandler = require('./middleware/errorHandler');
 const middlewareNotFoundError = require('./middleware/notFound');
 
 app.use(express.json())
-app.use('/api/v1/user', userRouter)
+app.use('/api/v1/auth', authRoute)
 
 
 app.use(middlewareNotFoundError)

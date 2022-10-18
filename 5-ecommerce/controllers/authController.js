@@ -1,8 +1,9 @@
 
 const User = require('../models/userModel')
-const bcrypt = require('bcryptjs')
 const { StatusCodes } = require("http-status-codes")
 const { BadRequestError, UnAuthenticatedError } = require('../errors')
+const { createJWT } = require('../utils')
+
 const login = async (req, res) => {
     const { password, email } = req.body
 
@@ -20,24 +21,26 @@ const login = async (req, res) => {
     if (!comparePassword) {
         throw new UnAuthenticatedError('check your email or password')
     }
+    const payload = { userId: user._id, user: user.name, role: user.role }
+    const token = createJWT(payload)
 
-    const token = user.createTokenJWT()
-
-    res.status(StatusCodes.OK).json({ msg: 'login success', username: user.name, token })
+    res.status(StatusCodes.OK).json({ msg: 'login success', user: payload, token })
 }
 
 
 
 const register = async (req, res) => {
-    const user = await User.create({ ...req.body })
+    const { name, password, email } = req.body
+
+    const user = await User.create({ name, password, email })
     const token = user.createTokenJWT()
     res.status(StatusCodes.CREATED).json({ msg: 'login success', user, token })
 }
 
 
-const dash = async (req, res) => {
-    res.status(200).json("hello in dashborad")
+const logout = async (req, res) => {
+    res.status(200).json("logout")
 }
 
-module.exports = { register, login, dash }
+module.exports = { register, login, logout }
 
