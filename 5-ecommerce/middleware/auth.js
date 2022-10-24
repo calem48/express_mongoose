@@ -1,25 +1,33 @@
-const { UnAuthenticatedError } = require("../errors")
-const jwt = require('jsonwebtoken')
+const { UnAuthenticatedError, authorizedPermisson } = require("../errors")
+const { isValidToken } = require("../utils")
+
 
 const auth = async (req, res, next) => {
-    const auth = req.headers.authorization
+    const token = req.signedCookies.token
 
-    if (!auth || !auth.startsWith('Bearer')) {
-        throw new UnAuthenticatedError('you did not authenticated')
+    if (!token) {
+        throw new UnAuthenticatedError('authenticated invalid')
     }
-
-    const token = auth.split(" ")[1]
 
     try {
-        const decode = jwt.verify(token, process.env.JWT_TOKEN)
-        req.userId = decode._id
+        const payload = isValidToken(token)
+        console.log(payload);
+        req.user = { ...payload }
         next()
     } catch (error) {
-        throw new UnAuthenticatedError('you did not authenticated')
+        throw new UnAuthenticatedError('authenticated invalid')
     }
+}
 
+const authorizedPermission = (req, res, next,) => {
 
+    if (req.user.role !== "admin") {
+        throw new authorizedPermisson("you don't have a permisson")
+    }
+    next()
 
 }
 
-module.exports = auth
+module.exports = { auth, authorizedPermission }
+
+

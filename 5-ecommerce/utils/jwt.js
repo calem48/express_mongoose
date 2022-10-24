@@ -9,5 +9,20 @@ const isValidToken = (token) => {
     return jwt.verify(token, process.env.JWT_TOKEN)
 }
 
+const sendCookies = (res, payload) => {
+    const token = createJWT(payload)
 
-module.exports = { createJWT, isValidToken }
+    res.cookie("token", token, {
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+        httpOnly: true,
+        secure: false,
+        signed: true
+
+    })
+
+    // res.status(statusCode.OK).json({ msg: 'login success', user: payload })
+}
+
+
+module.exports = { sendCookies, isValidToken }
+

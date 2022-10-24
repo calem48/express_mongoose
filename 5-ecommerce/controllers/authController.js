@@ -2,7 +2,7 @@
 const User = require('../models/userModel')
 const { StatusCodes } = require("http-status-codes")
 const { BadRequestError, UnAuthenticatedError } = require('../errors')
-const { createJWT } = require('../utils')
+const { sendCookies } = require('../utils')
 
 const login = async (req, res) => {
     const { password, email } = req.body
@@ -22,9 +22,8 @@ const login = async (req, res) => {
         throw new UnAuthenticatedError('check your email or password')
     }
     const payload = { userId: user._id, user: user.name, role: user.role }
-    const token = createJWT(payload)
-
-    res.status(StatusCodes.OK).json({ msg: 'login success', user: payload, token })
+    sendCookies(res, payload)
+    res.status(StatusCodes.OK).json({ msg: 'login success', user: payload })
 }
 
 
@@ -33,13 +32,16 @@ const register = async (req, res) => {
     const { name, password, email } = req.body
 
     const user = await User.create({ name, password, email })
-    const token = user.createTokenJWT()
-    res.status(StatusCodes.CREATED).json({ msg: 'login success', user, token })
+
+    const payload = { userId: user._id, user: user.name, role: user.role }
+    sendCookies({ res, user: payload })
+    res.status(StatusCodes.OK).json({ msg: 'login success', user: payload })
 }
 
 
 const logout = async (req, res) => {
-    res.status(200).json("logout")
+    res.cookie("token", "logout", { expires: new Date(Date.now()) })
+    res.status(StatusCodes.OK).json({ msg: "logout success" })
 }
 
 module.exports = { register, login, logout }
