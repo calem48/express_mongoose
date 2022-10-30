@@ -11,7 +11,6 @@ const auth = async (req, res, next) => {
 
     try {
         const payload = isValidToken(token)
-        console.log(payload);
         req.user = { ...payload }
         next()
     } catch (error) {
@@ -19,13 +18,13 @@ const auth = async (req, res, next) => {
     }
 }
 
-const authorizedPermission = (req, res, next,) => {
-
-    if (req.user.role !== "admin") {
-        throw new authorizedPermisson("you don't have a permisson")
+const authorizedPermission = (...roles) => {
+    return (req, res, next,) => {
+        if (!roles.includes(req.user.role)) {
+            throw new authorizedPermisson("unauthorzed to access this route")
+        }
+        next()
     }
-    next()
-
 }
 
 module.exports = { auth, authorizedPermission }

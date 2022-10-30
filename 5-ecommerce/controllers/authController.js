@@ -34,7 +34,7 @@ const register = async (req, res) => {
     const user = await User.create({ name, password, email })
 
     const payload = { userId: user._id, user: user.name, role: user.role }
-    sendCookies({ res, user: payload })
+    sendCookies(res, payload)
     res.status(StatusCodes.OK).json({ msg: 'login success', user: payload })
 }
 
