@@ -16,6 +16,7 @@ const connectDatabase = require('./db/connect');
 //routers
 const authRoute = require('./routers/authRoute');
 const userRoute = require('./routers/userRoute');
+const productRoute = require('./routers/productRoute');
 
 //errors
 const middlewareErrorHandler = require('./middleware/errorHandler');
@@ -24,12 +25,10 @@ const middlewareNotFoundError = require('./middleware/notFound');
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_TOKEN))
 
-// app.get('/', (req, res) => {
-//     console.log(req);
-// })
 
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user', userRoute)
+app.use('/api/v1/product', productRoute)
 
 
 app.use(middlewareNotFoundError)

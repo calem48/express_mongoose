@@ -2,7 +2,7 @@
 const User = require('../models/userModel')
 const { StatusCodes } = require("http-status-codes")
 const customError = require('../errors')
-const { sendCookies } = require('../utils')
+const { sendCookies, checkPermission } = require('../utils')
 
 
 const getAllUsers = async (req, res) => {
@@ -16,17 +16,24 @@ const getSingleUsers = async (req, res) => {
     if (!user) {
         throw new customError.NotFoundError("user not found")
     }
+    checkPermission(req.user, user._id)
     res.status(StatusCodes.OK).json({ user })
 }
 
 const updateUser = async (req, res) => {
+
     const { name, email } = req.body
-    if (!name && !email) {
+    if (!name || !email) {
         throw new customError.BadRequestError("put name and password")
     }
-    const user = await User.findByIdAndUpdate({ _id: req.user.userId }, { name, email }, { new: true, runValidators: true })
-    sendCookies(res, user)
-    res.status(StatusCodes.OK).json("update user")
+    // const user = await User.findByIdAndUpdate({ _id: req.user.userId }, { name, email }, { new: true, runValidators: true })
+    const user = await User.findById({ _id: req.user.userId })
+    user.name = name
+    user.email = email
+    await user.save()
+    const payload = { userId: user._id, user: user.name, role: user.role }
+    sendCookies(res, payload)
+    res.status(StatusCodes.OK).json({ msg: "update user", payload })
 }
 
 const removeUser = async (req, res) => {

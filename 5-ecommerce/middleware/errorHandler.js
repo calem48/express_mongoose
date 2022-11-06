@@ -10,6 +10,7 @@ const middlewareErrorHandler = (err, req, res, next) => {
     if (err.name === "ValidationError") {
         customError.statusCode = StatusCodes.BAD_REQUEST
         customError.message = `${Object.values(err.errors).map(item => item.message).join(',')}`
+
     }
 
     if (err.code === 11000) {
