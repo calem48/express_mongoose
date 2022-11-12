@@ -7,7 +7,8 @@ require('express-async-errors')
 const express = require('express');
 const app = express()
 
-var cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser')
+const fileUpload = require('express-fileupload')
 
 const connectDatabase = require('./db/connect');
 
@@ -17,6 +18,7 @@ const connectDatabase = require('./db/connect');
 const authRoute = require('./routers/authRoute');
 const userRoute = require('./routers/userRoute');
 const productRoute = require('./routers/productRoute');
+const reviewRoute = require('./routers/reviewRoute');
 
 //errors
 const middlewareErrorHandler = require('./middleware/errorHandler');
@@ -24,11 +26,13 @@ const middlewareNotFoundError = require('./middleware/notFound');
 
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_TOKEN))
-
+app.use(express.static("./public"))
+app.use(fileUpload())
 
 app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/product', productRoute)
+app.use('/api/v1/review', reviewRoute)
 
 
 app.use(middlewareNotFoundError)
