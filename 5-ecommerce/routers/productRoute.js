@@ -8,6 +8,7 @@ const {
     removeProduct,
     uploadProductImage
 } = require("../controllers/productController")
+const { getSingleProductReviews } = require("../controllers/reviewController")
 
 const { auth, authorizedPermission } = require("../middleware/auth")
 
@@ -28,5 +29,11 @@ router
     .patch(auth, authorizedPermission('admin'), updateProduct)
     .delete(auth, authorizedPermission('admin'), removeProduct)
     .get(getSingleProduct)
+
+router
+    .route('/:id/reviews')
+    .get(getSingleProductReviews)
+
+
 
 module.exports = router

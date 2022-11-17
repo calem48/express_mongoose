@@ -7,12 +7,12 @@ const { auth, authorizedPermission } = require('../middleware/auth')
 
 router
     .route("/")
-    .get(getAllReview)
+    .get(auth, getAllReview)
     .post(auth, createReview)
 
 router
     .route('/:id')
-    .get(getSingleReview)
+    .get(auth, getSingleReview)
     .delete(auth, removeReview)
     .patch(auth, updateReview)
 

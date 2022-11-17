@@ -10,6 +10,7 @@ const createProduct = async (req, res) => {
     res.status(StatusCodes.CREATED).json({ product })
 }
 
+
 const getAllProducts = async (req, res) => {
     const product = await Product.find({})
     res.status(StatusCodes.OK).json({ product, count: product.length })
@@ -17,7 +18,7 @@ const getAllProducts = async (req, res) => {
 
 
 const getSingleProduct = async (req, res) => {
-    const product = await Product.findOne({ _id: req.params.id })
+    const product = await Product.findOne({ _id: req.params.id }).populate("reviews")
 
     if (!product) {
         throw new NotFoundError('this product not found')
