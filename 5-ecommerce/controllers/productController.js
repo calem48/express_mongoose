@@ -5,6 +5,7 @@ const { NotFoundError, BadRequestError } = require("../errors")
 const path = require("path")
 
 const createProduct = async (req, res) => {
+
     req.body.userId = req.user.userId
     const product = await Product.create(req.body)
     res.status(StatusCodes.CREATED).json({ product })
@@ -28,7 +29,7 @@ const getSingleProduct = async (req, res) => {
 }
 
 const updateProduct = async (req, res) => {
-    const product = await Product.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
+    const product = await Product.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
     if (!product) {
         throw new NotFoundError('this product not found')
     }
@@ -42,6 +43,7 @@ const removeProduct = async (req, res) => {
     if (!product) {
         throw new NotFoundError('this product not found')
     }
+
     await product.remove()
 
     res.status(200).json({ msg: "delete product" })

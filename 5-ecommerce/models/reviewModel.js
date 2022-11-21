@@ -43,17 +43,16 @@ reviewSchema.statics.calcAvergeRating = async function (productId) {
 
     ])
 
-    try {
-        await this.model("Product").findOneAndUpdate({ _id: productId }, {
-            averageRating: res[0]?.averageRating || 0,
-            numOfReviews: res[0]?.numOfReviews || 0,
-        })
-    } catch (error) {
-        console.log(error);
-    }
+    await this.model("Product").findOneAndUpdate({ _id: productId }, {
+        averageRating: res[0]?.averageRating || 0,
+        numOfReviews: res[0]?.numOfReviews || 0,
+    })
 }
 
+
+
 reviewSchema.post('save', async function () {
+    console.log(reviewSchema);
     this.constructor.calcAvergeRating(this.productId)
 })
 
@@ -63,4 +62,39 @@ reviewSchema.post('remove', async function () {
     this.constructor.calcAvergeRating(this.productId)
 })
 
+
+
+
 module.exports = mongoose.model("Review", reviewSchema)
+
+/*
+reviewSchema.methods.calcAvergeRating = async function (productId) {
+    const res = await this.constructor.aggregate([
+
+        { $match: { productId: productId } },
+        {
+            $group: {
+                _id: null,
+                averageRating: { $avg: "$rating" },
+                numOfReviews: { $sum: 1 }
+            }
+        }
+
+    ])
+
+    await this.model("Product").findOneAndUpdate({ _id: productId }, {
+        averageRating: res[0]?.averageRating || 0,
+        numOfReviews: res[0]?.numOfReviews || 0,
+    })
+
+}
+
+reviewSchema.post('save', async function () {
+    this.calcAvergeRating(this.productId)
+})
+
+reviewSchema.post('remove', async function () {
+    this.calcAvergeRating(this.productId)
+})
+
+*/

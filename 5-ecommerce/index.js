@@ -19,6 +19,7 @@ const authRoute = require('./routers/authRoute');
 const userRoute = require('./routers/userRoute');
 const productRoute = require('./routers/productRoute');
 const reviewRoute = require('./routers/reviewRoute');
+const orderRoute = require('./routers/orderRoute');
 
 //errors
 const middlewareErrorHandler = require('./middleware/errorHandler');
@@ -33,6 +34,7 @@ app.use('/api/v1/auth', authRoute)
 app.use('/api/v1/user', userRoute)
 app.use('/api/v1/product', productRoute)
 app.use('/api/v1/review', reviewRoute)
+app.use('/api/v1/order', orderRoute)
 
 
 app.use(middlewareNotFoundError)

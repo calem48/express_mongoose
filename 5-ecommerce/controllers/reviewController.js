@@ -46,7 +46,7 @@ const getSingleReview = async (req, res) => {
 
 const removeReview = async (req, res) => {
     // const review = await Review.findOneAndDelete({ id: req.params.id })
-    const review = await Review.findOne({ id: req.params.id })
+    const review = await Review.findOne({ _id: req.params.id })
 
     if (!review) {
         throw new NotFoundError('not found product')
@@ -57,6 +57,7 @@ const removeReview = async (req, res) => {
 }
 
 const updateReview = async (req, res) => {
+
     const { rating, comment, title } = req.body
     //here we must not to use this way because we can't check permission so we use findOne
     // const review = await Review.findByIdAndUpdate({ _id: req.params.id }, { rating, comment, title }, { new: true })

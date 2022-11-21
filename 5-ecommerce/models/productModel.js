@@ -67,15 +67,19 @@ const productSchema = new mongoose.Schema({
 }, { timestamps: true, toJSON: { virtuals: true }, /*toObject: { virtuals: true }*/ })
 
 // virtual: use it like join query between review and product 
-// productSchema.virtual("reviews", {
-//     ref: "Review",
-//     localField: '_id',
-//     foreignField: 'productId',
-//     // justOne: false// if true it return one item but it false return array of object
-// })
+productSchema.virtual("reviews", {
+    ref: "Review",
+    localField: '_id',
+    foreignField: 'productId',
+    // justOne: false// if true it return one item but it false return array of object
+})
 
 productSchema.pre("remove", async function () {
     await this.model("Review").deleteMany({ productId: this._id })
 })
+
+
+
+
 
 module.exports = mongoose.model("Product", productSchema)
