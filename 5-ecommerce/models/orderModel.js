@@ -19,7 +19,7 @@ const OrderSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
-        orderItems: []
+        orderItems: [SingleOrderItemSchema]
         // orderItems: [
         //     {
         //         name: { type: String, required: true },
