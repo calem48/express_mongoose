@@ -39,7 +39,7 @@ const createOrder = async (req, res) => {
     }
 
     let orderItems = [];
-    let subtotal = 0;
+    // let subtotal = 0;
 
     for (const item of items) {
         const product = await Product.findOne({ _id: item.productId })
@@ -48,19 +48,21 @@ const createOrder = async (req, res) => {
         }
 
         const { name, image, price, _id } = product
+
         const eachSingleProductInCart = { name, price, image, productId: _id, amount: item.amount }
+
         orderItems = [...orderItems, eachSingleProductInCart]
-        subtotal += price * item.amount
+        // subtotal += price * item.amount
     }
 
-    let total = subtotal + shippingFee
+    // let total = subtotal + shippingFee
 
 
     const order = await Order.create({
         shippingFee,
         orderItems,
-        subtotal,
-        total,
+        // subtotal,
+        // total,
         userId: req.user.userId
     })
 
