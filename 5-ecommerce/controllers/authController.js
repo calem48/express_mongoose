@@ -19,7 +19,7 @@ const login = async (req, res) => {
     const comparePassword = await user.comparePassword(password)
 
     if (!comparePassword) {
-        throw new UnAuthenticatedError('check your email or password')
+        throw new BadRequestError('check your email or password')
     }
     const payload = { userId: user._id, user: user.name, role: user.role }
     sendCookies(res, payload)

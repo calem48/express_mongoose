@@ -1,0 +1,60 @@
+{
+	"info": {
+		"_postman_id": "d2605caa-1182-403e-a728-c7944f79e15a",
+		"name": "2-JWT-login-register-trainning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dashborad",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pc3NvIiwiaWF0IjoxNjY0NDg4NDYyLCJleHAiOjE2NjcwODA0NjJ9.7g7bNSGS3mr9kVdRDJeCXVKJb3U6_u9g5On6kg9O2GQ",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/v1/dashboard",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

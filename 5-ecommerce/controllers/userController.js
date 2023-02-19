@@ -11,6 +11,7 @@ const getAllUsers = async (req, res) => {
 }
 
 const getSingleUsers = async (req, res) => {
+
     const user = await User.findOne({ _id: req.params.id }).select('-password')
 
     if (!user) {
@@ -36,6 +37,10 @@ const updateUser = async (req, res) => {
     res.status(StatusCodes.OK).json({ msg: "update user", payload })
 }
 
+const setCurrentUser = async (req, res) => {
+    res.status(StatusCodes.OK).json(req.user)
+}
+
 const removeUser = async (req, res) => {
     res.status(StatusCodes.OK).json("remove user")
 }
@@ -59,4 +64,4 @@ const updatePassword = async (req, res) => {
     res.status(StatusCodes.OK).json({ msg: "password updated successfully" })
 }
 
-module.exports = { getAllUsers, getAllUsers, updateUser, updatePassword, removeUser, getSingleUsers }
+module.exports = { getAllUsers, getAllUsers, updateUser, updatePassword, removeUser, getSingleUsers, setCurrentUser }

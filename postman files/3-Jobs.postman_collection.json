@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "adc0f93e-42a0-4acb-a8ae-23fd36c5d3cb",
+		"name": "3-Jobs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json()\r",
+							"pm.globals.set('accessToken', jsonData.token)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"misso@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/user/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"greg zefze fze\",\r\n    \"email\":\"kayozefzefu@gmail.com\",\r\n    \"password\":\"12345678\",\r\n    \"rolee\":\"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/user/register",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create job",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzM5YzQyZDU3MTc5MDI5MjE1OTc3OWQiLCJpYXQiOjE2NjQ3OTc4ODksImV4cCI6MTY2NzM4OTg4OX0.g_V5o-O4memAPUd_2q8gwbtbOIKtGf51wluXfR0sWRQ",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"company\":\"apple\",\r\n    \"position\":\"fullstack\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/job",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"job"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all jobs",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzM4OWI4MDRiOTgyNDkwYzhiN2IwNTUiLCJpYXQiOjE2NjQ3OTgxODksImV4cCI6MTY2NzM5MDE4OX0.GJhuU-00WQTY770KkatQI8TCaeHUfDuMl9r4AyIOr4M",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{URL}}/v1/job",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"job"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single job",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/job/633abc55062fc793d431c274",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"job",
+						"633abc55062fc793d431c274"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"company\": \"facebook\",\r\n     \"position\": \"manager\",\r\n     \"status\":\"pending\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/job/633abc55062fc793d431c274",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"job",
+						"633abc55062fc793d431c274"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{accessToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/job/633accf5a4801f3e381449ff",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"job",
+						"633accf5a4801f3e381449ff"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

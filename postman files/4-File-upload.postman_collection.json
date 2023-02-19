@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "8b74de8e-d523-41d2-89ff-6c4402810952",
+		"name": "4-File-upload",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"phone redmi 8 pro\",\r\n    \"price\":\"30000\",\"image\":\"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/v1/product",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/product/uploads",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"product",
+						"uploads"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/v1/product",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"v1",
+						"product"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

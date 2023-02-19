@@ -3,7 +3,10 @@ const { isValidToken } = require("../utils")
 
 
 const auth = async (req, res, next) => {
-    const token = req.signedCookies.token
+    // const token = req.signedCookies.token // here must to active signed:true in cookie
+    const { token } = req.cookies
+
+    // console.log(req.cookies);
 
     if (!token) {
         throw new UnAuthenticatedError('authenticated invalid')
@@ -11,6 +14,7 @@ const auth = async (req, res, next) => {
 
     try {
         const payload = isValidToken(token)
+
         req.user = { ...payload }
         next()
     } catch (error) {

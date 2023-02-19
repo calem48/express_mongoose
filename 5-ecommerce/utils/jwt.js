@@ -13,13 +13,14 @@ const sendCookies = (res, payload) => {
     const token = createJWT(payload)
 
     res.cookie("token", token, {
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30),
+        sameSite: "none",
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 1),
         httpOnly: true,
-        secure: false,
-        signed: true
+        secure: true,
+        // signed: true
     })
 
-    // res.status(statusCode.OK).json({ msg: 'login success', user: payload })
+    // res.status(200).json({ msg: 'login success', user: payload })
 }
 
 

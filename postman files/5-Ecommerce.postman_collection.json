@@ -1,0 +1,626 @@
+{
+	"info": {
+		"_postman_id": "9472ea29-4c2e-49dc-8a51-f72bb934da73",
+		"name": "5-Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"misso@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzQ0NGNiNmU5MzE1NGM1MjRmM2I4MGUiLCJpYXQiOjE2NjU0MzAwMzQsImV4cCI6MTY2ODAyMjAzNH0.34OBPKJ3k36artNLbSeutUS55SdIGx_Lz-nHzN-uiFg",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/v1/auth/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"kayou\",\r\n    \"email\":\"kayou@gmail.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/user/6356ff8edee3c4dd63a0eb7a",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"6356ff8edee3c4dd63a0eb7a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/user/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"misso@gmail.com\",\r\n    \"name\":\"misso\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/user/updateUser",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"updateUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove user",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/user/removeUser",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"removeUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"oldPassword\":\"12345678\",\r\n   \"newPassword\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/user/updatePassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"user",
+								"updatePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get all product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/product",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"product two\",\r\n    \"company\":\"ikea\",\r\n    \"category\":\"office\",\r\n    \"description\":\"test description\",\r\n    \"price\":100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/product",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/product/636ffa4a8cdc55f70c163070",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product",
+								"636ffa4a8cdc55f70c163070"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"product one updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/product/637a2ad3bb427a801677bd15",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product",
+								"637a2ad3bb427a801677bd15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/product/637b9f957c30660a74105071",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product",
+								"637b9f957c30660a74105071"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/MB/Desktop/example.PNG"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/v1/product/uploadImage",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product",
+								"uploadImage"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single product review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/product/63766ed830b401d51a7b9f29/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"product",
+								"63766ed830b401d51a7b9f29",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Get all review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/review",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/review/63710da549811cff16c24901",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"review",
+								"63710da549811cff16c24901"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"rating\":2,\r\n    \"title\":\"testing \",\r\n    \"comment\":\"bad product\",\r\n    \"productId\":\"637a2ad3bb427a801677bd15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/review",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update review",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rating\":7,\r\n    \"title\":\"testing\",\r\n    \"comment\":\"bad product\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/review/637a2ca7bc7ca56f3c83722b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"review",
+								"637a2ca7bc7ca56f3c83722b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/review/6371509af451cbd92732bd2f",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"review",
+								"6371509af451cbd92732bd2f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Get all order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/order",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"shippingFee\": 5,\r\n    \"items\": [\r\n        {\r\n            \"name\": \"product one\",\r\n            \"price\": 300,\r\n            \"image\": \"/uploads/example.jpeg\",\r\n            \"amount\": 2,\r\n            \"productId\": \"637bcb4876a20ff42d5afede\"\r\n        },\r\n        {\r\n            \"name\": \"product two\",\r\n            \"price\": 100,\r\n            \"image\": \"https://dl.airtable.com/.attachmentThumbnails/e8bc3791196535af65f40e36993b9e1f/438bd160\",\r\n            \"amount\": 3,\r\n            \"productId\": \"637bcb6076a20ff42d5afee0\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/order",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/order/637bd075c527dcdbe33085a7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"order",
+								"637bd075c527dcdbe33085a7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/order/637cfea7bf176af533649635",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"order",
+								"637cfea7bf176af533649635"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/order/myAllOrders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"order",
+								"myAllOrders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

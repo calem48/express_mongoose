@@ -7,6 +7,8 @@ require('express-async-errors')
 const express = require('express');
 const app = express()
 
+var cors = require('cors')
+
 const cookieParser = require('cookie-parser')
 const fileUpload = require('express-fileupload')
 
@@ -24,6 +26,11 @@ const orderRoute = require('./routers/orderRoute');
 //errors
 const middlewareErrorHandler = require('./middleware/errorHandler');
 const middlewareNotFoundError = require('./middleware/notFound');
+
+// app.use(cors())
+app.use(cors({ credentials: true, origin: ['http://127.0.0.1:5173'] }));
+// app.use(cors({ credentials: true, origin: 'http://127.0.0.1:5173' }));
+// app.use(cors({ credentials: true, origin: "*" }));
 
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_TOKEN))
